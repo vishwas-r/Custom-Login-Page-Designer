@@ -1,0 +1,126 @@
+/**
+ * Neomorphic Modern Login Theme
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/public/css
+ */
+body.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #e6e9ef;
+}
+
+body.login #login {
+    background-color: #e6e9ef;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(166, 171, 189, 0.5), 
+                -10px -10px 20px rgba(255, 255, 255, 0.8);
+    padding: 45px;
+    width: 380px;
+}
+
+body.login h1 a {
+    margin-bottom: 35px;
+    filter: drop-shadow(2px 2px 4px rgba(166, 171, 189, 0.5)) 
+            drop-shadow(-2px -2px 4px rgba(255, 255, 255, 0.8));
+}
+
+body.login form {
+    margin-top: 25px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+body.login form .input,
+body.login input[type="text"],
+body.login input[type="password"] {
+    background-color: #e6e9ef;
+    border: none;
+    border-radius: 10px;
+    box-shadow: inset 5px 5px 10px rgba(166, 171, 189, 0.5), 
+                inset -5px -5px 10px rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+    color: #505050;
+}
+
+body.login form .input:focus,
+body.login input[type="text"]:focus,
+body.login input[type="password"]:focus {
+    box-shadow: inset 3px 3px 6px rgba(166, 171, 189, 0.5), 
+                inset -3px -3px 6px rgba(255, 255, 255, 0.8);
+    outline: none;
+}
+
+body.login label {
+    color: #505050;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+body.login .button.wp-hide-pw {
+    height: 48px;
+    color: #505050;
+}
+
+body.login .button-primary {
+    background: #4681f4;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    height: auto;
+    padding: 15px !important;
+    width: 100%;
+    box-shadow: 6px 6px 12px rgba(166, 171, 189, 0.5), 
+                -6px -6px 12px rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+body.login .button-primary:hover {
+    background: #3b6fda;
+    box-shadow: 4px 4px 8px rgba(166, 171, 189, 0.5), 
+                -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+body.login .button-primary:active {
+    box-shadow: inset 4px 4px 8px rgba(59, 111, 218, 0.3), 
+                inset -4px -4px 8px rgba(255, 255, 255, 0.3);
+}
+
+body.login #nav, body.login #backtoblog {
+    margin: 30px 0 0;
+    padding: 0;
+    text-align: center;
+}
+
+body.login #nav a, body.login #backtoblog a {
+    color: #505050;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+body.login #nav a:hover, body.login #backtoblog a:hover {
+    color: #4681f4;
+}
+
+body.login form .forgetmenot {
+    margin-bottom: 25px;
+}
+
+body.login .message, body.login #login_error {
+    background-color: #e6e9ef;
+    border-radius: 10px;
+    box-shadow: 6px 6px 12px rgba(166, 171, 189, 0.5), 
+                -6px -6px 12px rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    border-left: none;
+    padding: 15px 20px;
+}

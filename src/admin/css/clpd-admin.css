@@ -1,0 +1,142 @@
+/**
+ * Custom Login Page Designer Admin CSS
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/admin/css
+ */
+
+/* Admin Container */
+.clpd-admin-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.clpd-admin-main {
+    flex: 1 1 70%;
+    min-width: 500px;
+    margin-right: 20px;
+}
+
+.clpd-admin-sidebar {
+    flex: 0 1 25%;
+    min-width: 250px;
+}
+
+/* Admin Sections */
+.clpd-admin-section {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.clpd-admin-section h2 {
+    margin-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Template Selector */
+.clpd-template-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.clpd-template-option {
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    width: 200px;
+    transition: all 0.2s ease;
+}
+
+.clpd-template-option.selected {
+    border-color: #2271b1;
+    box-shadow: 0 0 5px rgba(34, 113, 177, 0.5);
+}
+
+.clpd-template-option input[type="radio"] {
+    display: none;
+}
+
+.clpd-template-preview {
+    background: #f0f0f1;
+    border-radius: 3px;
+    height: 150px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.clpd-template-preview img {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Image Uploader */
+.clpd-image-uploader {
+    margin-bottom: 10px;
+}
+
+.clpd-image-preview {
+    background: #f0f0f1;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    display: inline-block;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 5px;
+    vertical-align: middle;
+    width: 180px;
+}
+
+.clpd-image-preview img {
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.clpd-image-remove-button {
+    margin-left: 5px !important;
+}
+
+/* Sidebar Widgets */
+.clpd-sidebar-widget {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    margin-bottom: 20px;
+    padding: 15px;
+}
+
+.clpd-sidebar-widget h3 {
+    border-bottom: 1px solid #eee;
+    margin-top: 0;
+    padding-bottom: 10px;
+}
+
+.clpd-sidebar-widget ul {
+    list-style: disc;
+    margin-left: 15px;
+}
+
+/* Responsive */
+@media screen and (max-width: 782px) {
+    .clpd-admin-container {
+        flex-direction: column;
+    }
+    
+    .clpd-admin-main {
+        margin-right: 0;
+        min-width: 100%;
+    }
+    
+    .clpd-admin-sidebar {
+        margin-top: 20px;
+        min-width: 100%;
+    }
+}

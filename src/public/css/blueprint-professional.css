@@ -1,0 +1,152 @@
+/**
+ * Blueprint Professional Login Theme
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/public/css
+ */
+body.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #f0f6ff;
+    background-image: linear-gradient(rgba(41, 98, 255, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(41, 98, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+body.login #login {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(41, 98, 255, 0.1);
+    padding: 40px;
+    width: 400px;
+    position: relative;
+    border-left: 5px solid #2962ff;
+}
+
+body.login h1 a {
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+body.login h1 a:hover {
+    transform: scale(1.05);
+}
+
+body.login form {
+    margin-top: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+body.login form .input,
+body.login input[type="text"],
+body.login input[type="password"] {
+    background-color: #f7faff;
+    border: 2px solid #e0e9ff;
+    border-radius: 6px;
+    box-shadow: none;
+    font-size: 16px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+    color: #333333;
+}
+
+body.login form .input:focus,
+body.login input[type="text"]:focus,
+body.login input[type="password"]:focus {
+    border-color: #2962ff;
+    box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+    outline: none;
+}
+
+body.login label {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+body.login .button.wp-hide-pw {
+    height: 50px;
+}
+
+body.login .button-primary {
+    background: #2962ff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    height: auto;
+    padding: 14px 16px !important;
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(41, 98, 255, 0.2);
+}
+
+body.login .button-primary:hover {
+    background: #1a54f7;
+    box-shadow: 0 6px 16px rgba(41, 98, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+body.login .button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(41, 98, 255, 0.2);
+}
+
+body.login #nav, body.login #backtoblog {
+    margin: 30px 0 0;
+    padding: 0;
+    text-align: center;
+}
+
+body.login #nav a, body.login #backtoblog a {
+    color: #555555;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+body.login #nav a:hover, body.login #backtoblog a:hover {
+    color: #2962ff;
+}
+
+body.login form .forgetmenot {
+    margin-bottom: 25px;
+}
+
+body.login .message, body.login #login_error {
+    background-color: #f7faff;
+    border-left: 4px solid #2962ff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(41, 98, 255, 0.1);
+    margin-bottom: 25px;
+}
+
+/* Decorative elements */
+body.login #login::before {
+    content: "";
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px dashed rgba(41, 98, 255, 0.2);
+    z-index: 0;
+}
+
+body.login #login::after {
+    content: "";
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgba(41, 98, 255, 0.05);
+    z-index: 0;
+}

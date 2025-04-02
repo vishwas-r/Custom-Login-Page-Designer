@@ -1,0 +1,179 @@
+/**
+ * Glassmorphism Login Theme
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/public/css
+ */
+ body.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    overflow: hidden;
+}
+body.login::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 10%, transparent 10.5%);
+    background-size: 40px 40px;
+    transform: rotate(30deg);
+}
+body.login #login {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+    padding: 50px 40px;
+    width: 440px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+}
+body.login #login::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: inherit;
+    border-radius: 24px;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.7;
+}
+body.login h1 a {
+    margin-bottom: 36px;
+}
+body.login form {
+    margin-top: 24px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+body.login form .input,
+body.login input[type="text"],
+body.login input[type="password"] {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 16px 18px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+body.login form .input::placeholder,
+body.login input[type="text"]::placeholder,
+body.login input[type="password"]::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+body.login form .input:focus,
+body.login input[type="text"]:focus,
+body.login input[type="password"]:focus {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+    outline: none;
+}
+body.login label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+body.login .button.wp-hide-pw {
+    height: 52px;
+    color: rgba(255, 255, 255, 0.8);
+}
+body.login .button.wp-hide-pw:focus {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: #fff;
+}
+body.login .button-primary {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    padding: 16px 20px !important;
+    width: 100%;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+body.login .button-primary:hover {
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+body.login .button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+body.login #nav,
+body.login #backtoblog {
+    margin: 28px 0 0;
+    padding: 0;
+    text-align: center;
+}
+body.login #nav a,
+body.login #backtoblog a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+body.login #nav a:hover,
+body.login #backtoblog a:hover {
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+/* Checkbox style */
+body.login form .forgetmenot {
+    margin-bottom: 24px;
+}
+body.login form .forgetmenot input[type="checkbox"] {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+body.login form .forgetmenot input[type="checkbox"]:checked {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+body.login form .forgetmenot label {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.8);
+}
+/* Login message and errors */
+body.login .message,
+body.login #login_error {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    margin-bottom: 24px;
+}
+body.login #login_error {
+    border-left-color: #ff6b6b;
+}

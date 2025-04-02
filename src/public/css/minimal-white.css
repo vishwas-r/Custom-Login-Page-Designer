@@ -1,0 +1,151 @@
+/**
+ * Minimal White Login Theme
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/public/css
+ */
+ body.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #f5f7fa;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(240, 244, 248, 0.5) 20%, transparent 20%),
+        radial-gradient(circle at 75% 75%, rgba(240, 244, 248, 0.8) 20%, transparent 20%);
+    background-size: 60px 60px;
+}
+body.login #login {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    padding: 50px 40px;
+    width: 420px;
+    border: 1px solid rgba(229, 231, 235, 0.8);
+}
+body.login h1 a {
+    margin-bottom: 36px;
+    animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+body.login form {
+    margin-top: 24px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+body.login form .input,
+body.login input[type="text"],
+body.login input[type="password"] {
+    background-color: #fff;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: none;
+    color: #4b5563;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 16px 18px;
+    transition: all 0.2s ease;
+    margin-bottom: 18px;
+}
+body.login form .input:focus,
+body.login input[type="text"]:focus,
+body.login input[type="password"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    outline: none;
+}
+body.login label {
+    color: #374151;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+body.login .button.wp-hide-pw {
+    height: 54px;
+    color: #9ca3af;
+}
+body.login .button.wp-hide-pw:focus {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    color: #4b5563;
+}
+body.login .button-primary {
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    height: auto;
+    padding: 16px 20px !important;
+    width: 100%;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+}
+body.login .button-primary:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+}
+body.login .button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 15px -3px rgba(59, 130, 246, 0.5);
+}
+body.login #nav,
+body.login #backtoblog {
+    margin: 28px 0 0;
+    padding: 0;
+    text-align: center;
+}
+body.login #nav a,
+body.login #backtoblog a {
+    color: #6b7280;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+body.login #nav a:hover,
+body.login #backtoblog a:hover {
+    color: #3b82f6;
+}
+/* Checkbox style */
+body.login form .forgetmenot {
+    margin-bottom: 24px;
+}
+body.login form .forgetmenot input[type="checkbox"] {
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    height: 20px;
+    width: 20px;
+}
+body.login form .forgetmenot input[type="checkbox"]:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+body.login form .forgetmenot label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #6b7280;
+}
+/* Login message and errors */
+body.login .message,
+body.login #login_error {
+    background-color: #fff;
+    border-left: 4px solid #3b82f6;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 24px;
+}
+body.login #login_error {
+    border-left-color: #ef4444;
+}

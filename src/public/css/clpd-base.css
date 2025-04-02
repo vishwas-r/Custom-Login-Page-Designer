@@ -1,0 +1,101 @@
+/**
+ * Custom Login Page Designer Base CSS
+ *
+ * @package    Custom_Login_Page_Designer
+ * @subpackage Custom_Login_Page_Designer/public/css
+ */
+
+/* Base styles that apply to all designs */
+body.login {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body.login #login {
+    padding: 5% 0;
+}
+
+body.login .message,
+body.login #login_error {
+    border-left: 4px solid #00a0d2;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+body.login .message {
+    border-left-color: #46b450;
+}
+
+body.login #login_error {
+    border-left-color: #dc3232;
+}
+
+body.login #nav,
+body.login #backtoblog {
+    text-align: center;
+}
+
+/* Logo adjustments */
+body.login h1 a {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 84px;
+    width: 320px;
+    max-width: 100%;
+}
+
+/* Form improvements */
+body.login form {
+    overflow: hidden;
+}
+
+body.login form .input,
+body.login input[type="text"],
+body.login input[type="password"] {
+    font-size: 16px;
+    margin: 2px 0 16px;
+    padding: 10px;
+    width: 100%;
+}
+
+body.login #wp-submit {
+    transition: background-color 0.3s ease;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    font-size: 15px;
+    line-height: 1;
+}
+
+body.login .button.wp-hide-pw {
+    height: 40px;
+}
+
+body.login label {
+    font-size: 14px;
+}
+
+body.login .forgetmenot {
+    margin-bottom: 16px;
+}
+
+/* Remember me checkbox */
+body.login form .forgetmenot {
+    display: flex;
+    align-items: center;
+}
+
+body.login form .forgetmenot input[type="checkbox"] {
+    height: 16px;
+    width: 16px;
+}
+
+/* Password reset page */
+body.login .button-primary {
+    float: none;
+    margin-top: 10px;
+}
