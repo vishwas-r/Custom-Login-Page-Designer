@@ -40,11 +40,36 @@ class Settings {
      */
     public function __construct($loader) {
         $this->loader = $loader;
-        $this->settings = get_option('clpd_settings', array());
+        $this->set_default_settings();
+        $this->settings = get_option('clpd_settings', $this->default_settings);
 
         $this->register_hooks();
     }
 
+     /**
+     * Set default settings for the plugin
+     */
+    private function set_default_settings() {
+        $this->default_settings = array(
+            'design_template' => 'minimal-white',
+            'background_type' => 'color',
+            'background_color' => '#f0f0f1',
+            'background_gradient_start' => '#2271b1',
+            'background_gradient_end' => '#135e96',
+            'background_image' => '',
+            'logo_image' => '',
+            'logo_image_width' => '250px',
+            'logo_image_height' => '80px',
+            'logo_image_radius' => '0px',
+            'text_color' => '#3c434a',
+            'text_font_family' => 'sans-serif',
+            'button_text_color' => '#ffffff',
+            'button_bg_color' => '#2271b1',
+            'button_hover_bg_color' => '#135e96',
+            'button_font_family' => 'sans-serif',
+        );
+    }
+    
     /**
      * Register the hooks related to settings
      */

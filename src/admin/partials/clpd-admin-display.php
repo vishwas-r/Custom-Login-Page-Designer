@@ -6,15 +6,12 @@
  * @package    Custom_Login_Page_Designer
  * @subpackage Custom_Login_Page_Designer/admin/partials
  */
-
 // If this file is called directly, abort.
 if (!defined('ABSPATH')) {
     exit;
 }
-
 // Get current settings
 $settings = $this->settings;
-
 // Get design templates
 $design_templates = array(
     'minimal-white' => __('Minimal White', 'custom-login-page-designer'),
@@ -26,7 +23,6 @@ $design_templates = array(
     'neomorphic-modern' => __('Neomorphic Modern', 'custom-login-page-designer'),
     'blueprint-professional' => __('Blueprint Professional', 'custom-login-page-designer'),
 );
-
 // Get font families
 $font_families = array(
     'Arial, sans-serif' => __('Arial', 'custom-login-page-designer'),
@@ -37,25 +33,195 @@ $font_families = array(
     'Times New Roman, serif' => __('Times New Roman', 'custom-login-page-designer'),
 );
 
-// Default values
-$design_template = isset($settings['design_template']) ? $settings['design_template'] : 'minimal-white';
-$background_type = isset($settings['background_type']) ? $settings['background_type'] : 'color';
-$background_color = isset($settings['background_color']) ? $settings['background_color'] : '#f0f0f1';
-$background_gradient_start = isset($settings['background_gradient_start']) ? $settings['background_gradient_start'] : '#2271b1';
-$background_gradient_end = isset($settings['background_gradient_end']) ? $settings['background_gradient_end'] : '#135e96';
-$background_image = isset($settings['background_image']) ? $settings['background_image'] : '';
-$logo_image = isset($settings['logo_image']) ? $settings['logo_image'] : '';
-$logo_image_width = isset($settings['logo_image_width']) ? $settings['logo_image_width'] : '250px';
-$logo_image_height = isset($settings['logo_image_height']) ? $settings['logo_image_height'] : '80px';
-$logo_image_radius = isset($settings['logo_image_radius']) ? $settings['logo_image_radius'] : '0px';
-$text_color = isset($settings['text_color']) ? $settings['text_color'] : '#3c434a';
-$text_font_family = isset($settings['text_font_family']) ? $settings['text_font_family'] : 'sans-serif';
-$button_text_color = isset($settings['button_text_color']) ? $settings['button_text_color'] : '#ffffff';
-$button_bg_color = isset($settings['button_bg_color']) ? $settings['button_bg_color'] : '#2271b1';
-$button_hover_bg_color = isset($settings['button_hover_bg_color']) ? $settings['button_hover_bg_color'] : '#135e96';
-$button_font_family = isset($settings['button_font_family']) ? $settings['button_font_family'] : 'sans-serif';
-?>
+// Template settings
+$template_settings = array(
+    'minimal-white' => array(
+        'background_type' => 'color',
+        'background_color' => '#f0f0f1',
+        'background_gradient_start' => '#2271b1',
+        'background_gradient_end' => '#135e96',
+        'background_image' => '',
+        'logo_image_width' => '250px',
+        'logo_image_height' => '80px',
+        'logo_image_radius' => '0px',
+        'text_color' => '#3c434a',
+        'text_font_family' => 'Arial, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#2271b1',
+        'button_hover_bg_color' => '#135e96',
+        'button_font_family' => 'Arial, sans-serif',
+    ),
+    'corporate-professional' => array(
+        'background_type' => 'color',
+        'background_color' => '#f8f9fa',
+        'background_gradient_start' => '#4b7bec',
+        'background_gradient_end' => '#3867d6',
+        'background_image' => '',
+        'logo_image_width' => '200px',
+        'logo_image_height' => '70px',
+        'logo_image_radius' => '5px',
+        'text_color' => '#2d3436',
+        'text_font_family' => 'Helvetica, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#3867d6',
+        'button_hover_bg_color' => '#2d3436',
+        'button_font_family' => 'Helvetica, sans-serif',
+    ),
+    'modern-tech' => array(
+        'background_type' => 'gradient',
+        'background_color' => '#2d3436',
+        'background_gradient_start' => '#2d3436',
+        'background_gradient_end' => '#636e72',
+        'background_image' => '',
+        'logo_image_width' => '180px',
+        'logo_image_height' => '60px',
+        'logo_image_radius' => '0px',
+        'text_color' => '#dfe6e9',
+        'text_font_family' => 'Arial, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#0984e3',
+        'button_hover_bg_color' => '#74b9ff',
+        'button_font_family' => 'Arial, sans-serif',
+    ),
+    'glassmorphism' => array(
+        'background_type' => 'image',
+        'background_color' => '#ffffff',
+        'background_gradient_start' => '#ffffff',
+        'background_gradient_end' => '#f1f1f1',
+        'background_image' => '',
+        'logo_image_width' => '220px',
+        'logo_image_height' => '75px',
+        'logo_image_radius' => '10px',
+        'text_color' => '#2d3436',
+        'text_font_family' => 'Helvetica, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => 'rgba(45, 52, 54, 0.7)',
+        'button_hover_bg_color' => 'rgba(45, 52, 54, 0.9)',
+        'button_font_family' => 'Helvetica, sans-serif',
+    ),
+    'dark-gradient' => array(
+        'background_type' => 'gradient',
+        'background_color' => '#000000',
+        'background_gradient_start' => '#2d3436',
+        'background_gradient_end' => '#000000',
+        'background_image' => '',
+        'logo_image_width' => '200px',
+        'logo_image_height' => '70px',
+        'logo_image_radius' => '0px',
+        'text_color' => '#ffffff',
+        'text_font_family' => 'Arial, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#6c5ce7',
+        'button_hover_bg_color' => '#a29bfe',
+        'button_font_family' => 'Arial, sans-serif',
+    ),
+    'nature-inspired' => array(
+        'background_type' => 'image',
+        'background_color' => '#dfe6e9',
+        'background_gradient_start' => '#55efc4',
+        'background_gradient_end' => '#00b894',
+        'background_image' => '',
+        'logo_image_width' => '180px',
+        'logo_image_height' => '60px',
+        'logo_image_radius' => '50%',
+        'text_color' => '#2d3436',
+        'text_font_family' => 'Georgia, serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#00b894',
+        'button_hover_bg_color' => '#00cec9',
+        'button_font_family' => 'Georgia, serif',
+    ),
+    'neomorphic-modern' => array(
+        'background_type' => 'color',
+        'background_color' => '#e0e5ec',
+        'background_gradient_start' => '#e0e5ec',
+        'background_gradient_end' => '#e0e5ec',
+        'background_image' => '',
+        'logo_image_width' => '220px',
+        'logo_image_height' => '75px',
+        'logo_image_radius' => '15px',
+        'text_color' => '#2d3436',
+        'text_font_family' => 'Helvetica, sans-serif',
+        'button_text_color' => '#2d3436',
+        'button_bg_color' => '#e0e5ec',
+        'button_hover_bg_color' => '#d1d9e6',
+        'button_font_family' => 'Helvetica, sans-serif',
+    ),
+    'blueprint-professional' => array(
+        'background_type' => 'color',
+        'background_color' => '#ffffff',
+        'background_gradient_start' => '#3498db',
+        'background_gradient_end' => '#2980b9',
+        'background_image' => '',
+        'logo_image_width' => '200px',
+        'logo_image_height' => '70px',
+        'logo_image_radius' => '5px',
+        'text_color' => '#34495e',
+        'text_font_family' => 'Tahoma, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#3498db',
+        'button_hover_bg_color' => '#2980b9',
+        'button_font_family' => 'Tahoma, sans-serif',
+    ),
+);
 
+// Get the selected template
+$design_template = isset($settings['design_template']) ? $settings['design_template'] : 'minimal-white';
+
+// Use template settings if available, otherwise use defaults
+$current_template = isset($template_settings[$design_template]) ? $template_settings[$design_template] : $template_settings['minimal-white'];
+
+// Get settings or use defaults from the template
+$background_type = isset($settings['background_type']) ? $settings['background_type'] : $current_template['background_type'];
+$background_color = isset($settings['background_color']) ? $settings['background_color'] : $current_template['background_color'];
+$background_gradient_start = isset($settings['background_gradient_start']) ? $settings['background_gradient_start'] : $current_template['background_gradient_start'];
+$background_gradient_end = isset($settings['background_gradient_end']) ? $settings['background_gradient_end'] : $current_template['background_gradient_end'];
+$background_image = isset($settings['background_image']) ? $settings['background_image'] : $current_template['background_image'];
+$logo_image = isset($settings['logo_image']) ? $settings['logo_image'] : '';
+$logo_image_width = isset($settings['logo_image_width']) ? $settings['logo_image_width'] : $current_template['logo_image_width'];
+$logo_image_height = isset($settings['logo_image_height']) ? $settings['logo_image_height'] : $current_template['logo_image_height'];
+$logo_image_radius = isset($settings['logo_image_radius']) ? $settings['logo_image_radius'] : $current_template['logo_image_radius'];
+$text_color = isset($settings['text_color']) ? $settings['text_color'] : $current_template['text_color'];
+$text_font_family = isset($settings['text_font_family']) ? $settings['text_font_family'] : $current_template['text_font_family'];
+$button_text_color = isset($settings['button_text_color']) ? $settings['button_text_color'] : $current_template['button_text_color'];
+$button_bg_color = isset($settings['button_bg_color']) ? $settings['button_bg_color'] : $current_template['button_bg_color'];
+$button_hover_bg_color = isset($settings['button_hover_bg_color']) ? $settings['button_hover_bg_color'] : $current_template['button_hover_bg_color'];
+$button_font_family = isset($settings['button_font_family']) ? $settings['button_font_family'] : $current_template['button_font_family'];
+
+// Default settings for restore functionality
+$default_settings = $template_settings['minimal-white'];
+$default_settings['design_template'] = 'minimal-white';
+$default_settings['logo_image'] = '';
+
+// Handle restore default settings
+if (isset($_POST['clpd_restore_defaults']) && check_admin_referer('clpd_settings_nonce', 'clpd_settings_nonce')) {
+    update_option('clpd_settings', $default_settings);
+    
+    // Show admin notice
+    add_action('admin_notices', function() {
+        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Settings restored to defaults.', 'custom-login-page-designer') . '</p></div>';
+    });
+    
+    // Refresh the settings
+    $settings = $default_settings;
+    $design_template = $default_settings['design_template'];
+    $background_type = $default_settings['background_type'];
+    $background_color = $default_settings['background_color'];
+    $background_gradient_start = $default_settings['background_gradient_start'];
+    $background_gradient_end = $default_settings['background_gradient_end'];
+    $background_image = $default_settings['background_image'];
+    $logo_image = $default_settings['logo_image'];
+    $logo_image_width = $default_settings['logo_image_width'];
+    $logo_image_height = $default_settings['logo_image_height'];
+    $logo_image_radius = $default_settings['logo_image_radius'];
+    $text_color = $default_settings['text_color'];
+    $text_font_family = $default_settings['text_font_family'];
+    $button_text_color = $default_settings['button_text_color'];
+    $button_bg_color = $default_settings['button_bg_color'];
+    $button_hover_bg_color = $default_settings['button_hover_bg_color'];
+    $button_font_family = $default_settings['button_font_family'];
+}
+?>
 <div class="wrap">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
     
@@ -75,7 +241,10 @@ $button_font_family = isset($settings['button_font_family']) ? $settings['button
                                 <div class="clpd-template-selector">
                                     <?php foreach ($design_templates as $value => $label) : ?>
                                         <label class="clpd-template-option <?php echo ($value === $design_template) ? 'selected' : ''; ?>">
-                                            <input type="radio" name="design_template" value="<?php echo esc_attr($value); ?>" <?php checked($design_template, $value); ?>>
+                                            <input type="radio" name="design_template" value="<?php echo esc_attr($value); ?>" 
+                                                   <?php checked($design_template, $value); ?>
+                                                   class="clpd-template-select"
+                                                   data-template="<?php echo esc_attr($value); ?>">
                                             <div class="clpd-template-preview">
                                                 <?php 
                                                 $template_img_id = attachment_url_to_postid(CLPD_PLUGIN_URL . 'admin/images/' . $value . '-preview.png');
@@ -302,17 +471,20 @@ $button_font_family = isset($settings['button_font_family']) ? $settings['button
                     </table>
                 </div>
                 
-                <p class="submit">
-                    <input type="submit" name="clpd_settings_submit" class="button button-primary" value="<?php esc_html_e('Save Settings', 'custom-login-page-designer'); ?>">
-                    <!-- <a href="<?php //echo wp_login_url(); ?>" target="_blank" class="button"><?php //esc_html_e('Preview Login Page', 'custom-login-page-designer'); ?></a> -->
-                </p>
+                <div class="clpd-submit-buttons">
+                    <p class="submit">
+                        <input type="submit" name="clpd_settings_submit" class="button button-primary" value="<?php esc_html_e('Save Settings', 'custom-login-page-designer'); ?>">
+                        <input type="submit" name="clpd_restore_defaults" class="button" value="<?php esc_html_e('Restore Default Settings', 'custom-login-page-designer'); ?>" onclick="return confirm('<?php esc_html_e('Are you sure you want to restore all settings to default values?', 'custom-login-page-designer'); ?>')">
+                        <!-- <a href="<?php //echo esc_url(wp_login_url() . '?preview=1'); ?>" target="_blank" class="button"><?php //esc_html_e('Preview Login Page', 'custom-login-page-designer'); ?></a> -->
+                    </p>
+                </div>
             </form>
         </div>
         
         <div class="clpd-admin-sidebar">
             <div class="clpd-sidebar-widget">
                 <h3><?php esc_html_e('About This Plugin', 'custom-login-page-designer'); ?></h3>
-                <p><?php esc_html_e('Custom Login Page Designer allows you to customize your WordPress login page with  predefined designs and various customization options.', 'custom-login-page-designer'); ?></p>
+                <p><?php esc_html_e('Custom Login Page Designer allows you to customize your WordPress login page with predefined designs and various customization options.', 'custom-login-page-designer'); ?></p>
             </div>
             
             <div class="clpd-sidebar-widget">
@@ -324,5 +496,9 @@ $button_font_family = isset($settings['button_font_family']) ? $settings['button
                 </ul>
             </div>
         </div>
+    </div>
+
+    <div class="footer">
+        Made with  <span class="heart">❤️</span>  by <a href="https://vishwas.me" target="_blank">Vishwas R</a>
     </div>
 </div>
