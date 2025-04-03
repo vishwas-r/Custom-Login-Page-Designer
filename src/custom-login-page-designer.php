@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Custom Login Page Designer
  * Plugin URI: https://vishwas.me
- * Description: A plugin to customize the WordPress login page with predefined designs.
+ * Description: Custom Login Page Designer allows you to customize your WordPress login page with predefined designs and various customization options.
  * Version: 1.0.0
  * Author: Vishwas R
  * Author URI: https://vishwas.me/

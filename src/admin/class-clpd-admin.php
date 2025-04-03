@@ -42,7 +42,7 @@ class Admin {
      */
     private function register_hooks() {
         $this->loader->add_action('admin_menu', $this, 'add_menu_page');
-        //$this->loader->add_action('admin_menu', $this, 'add_options_page');
+        $this->loader->add_action('admin_menu', $this, 'add_options_page');
         $this->loader->add_action('admin_enqueue_scripts', $this, 'clpd_enqueue_admin_scripts');
         $this->loader->add_filter('plugin_action_links_' . CLPD_PLUGIN_BASENAME, $this, 'add_plugin_action_links');
     }
@@ -65,15 +65,15 @@ class Admin {
     /**
      * Add options page to admin menu (kept for backward compatibility)
      */
-    // public function add_options_page() {
-    //     add_options_page(
-    //         __('Custom Login Page Designer', 'custom-login-page-designer'),
-    //         __('Login Page Designer', 'custom-login-page-designer'),
-    //         'manage_options',
-    //         'custom-login-page-designer-settings',
-    //         array($this, 'render_options_page')
-    //     );
-    // }
+    public function add_options_page() {
+        add_options_page(
+            __('Custom Login Page Designer', 'custom-login-page-designer'),
+            __('Login Page Designer', 'custom-login-page-designer'),
+            'manage_options',
+            'custom-login-page-designer-settings',
+            array($this, 'render_options_page')
+        );
+    }
     
     /**
      * Render options page
