@@ -3,8 +3,8 @@
  * The customizer class
  *
  * @since      1.0.0
- * @package    Custom_Login_Page_Designer
- * @subpackage Custom_Login_Page_Designer/includes
+ * @package    CLPD51
+ * @subpackage CLPD51/includes
  */
 
 namespace CLPD;

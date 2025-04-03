@@ -3,8 +3,8 @@
  * The admin options page display
  *
  * @since      1.0.0
- * @package    Custom_Login_Page_Designer
- * @subpackage Custom_Login_Page_Designer/admin/partials
+ * @package    CLPD51
+ * @subpackage CLPD51/admin/partials
  */
 // If this file is called directly, abort.
 if (!defined('ABSPATH')) {

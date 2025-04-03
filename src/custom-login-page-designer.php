@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 /**
  * Main plugin class
  */
-class Custom_Login_Page_Designer {
+class CLPD51 {
 
     /**
      * Plugin version
@@ -31,7 +31,7 @@ class Custom_Login_Page_Designer {
     /**
      * Plugin singleton instance
      *
-     * @var Custom_Login_Page_Designer
+     * @var CLPD51
      */
     private static $instance = null;
 
@@ -52,7 +52,7 @@ class Custom_Login_Page_Designer {
     /**
      * Get singleton instance
      *
-     * @return Custom_Login_Page_Designer
+     * @return CLPD51
      */
     public static function get_instance() {
         if (null === self::$instance) {
@@ -168,7 +168,7 @@ class Custom_Login_Page_Designer {
 
 // Initialize the plugin
 function custom_login_page_designer() {
-    return Custom_Login_Page_Designer::get_instance();
+    return CLPD51::get_instance();
 }
 
 // Get the plugin running

@@ -3,8 +3,8 @@
  * The admin-specific functionality of the plugin.
  *
  * @since      1.0.0
- * @package    Custom_Login_Page_Designer
- * @subpackage Custom_Login_Page_Designer/admin
+ * @package    CLPD51
+ * @subpackage CLPD51/admin
  */
 namespace CLPD\Admin;
 // If this file is called directly, abort.

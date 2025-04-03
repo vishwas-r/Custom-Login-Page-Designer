@@ -3,8 +3,8 @@
  * The public-facing functionality of the plugin.
  *
  * @since      1.0.0
- * @package    Custom_Login_Page_Designer
- * @subpackage Custom_Login_Page_Designer/public
+ * @package    CLPD51
+ * @subpackage CLPD51/public
  */
 
 namespace CLPD\Public;

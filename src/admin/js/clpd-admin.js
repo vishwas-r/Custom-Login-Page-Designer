@@ -1,8 +1,8 @@
 /**
  * Custom Login Page Designer Admin JavaScript
  *
- * @package    Custom_Login_Page_Designer
- * @subpackage Custom_Login_Page_Designer/admin/js
+ * @package    CLPD51
+ * @subpackage CLPD51/admin/js
  */
 
 (function($) {
