@@ -99,31 +99,35 @@ class Admin {
      */
     private function process_settings($post_data) {
         $settings = array();
+    
         $fields = array(
-            'design_template',
-            'background_type',
-            'background_color',
-            'background_gradient_start',
-            'background_gradient_end',
-            'background_image',
-            'logo_image',
-            'logo_image_width',
-            'logo_image_height',
-            'logo_image_radius',
-            'text_color',
-            'text_font_family',
-            'button_text_color',
-            'button_bg_color',
-            'button_hover_bg_color',
-            'button_font_family'
+            'design_template'         => 'sanitize_text_field',
+            'background_type'         => 'sanitize_text_field',
+            'background_color'        => 'sanitize_hex_color',
+            'background_gradient_start' => 'sanitize_hex_color',
+            'background_gradient_end' => 'sanitize_hex_color',
+            'background_image'        => 'esc_url_raw',
+            'logo_image'              => 'esc_url_raw',
+            'logo_image_width'        => 'absint',
+            'logo_image_height'       => 'absint',
+            'logo_image_radius'       => 'absint',
+            'text_color'              => 'sanitize_hex_color',
+            'text_font_family'        => 'sanitize_text_field',
+            'button_text_color'       => 'sanitize_hex_color',
+            'button_bg_color'         => 'sanitize_hex_color',
+            'button_hover_bg_color'   => 'sanitize_hex_color',
+            'button_font_family'      => 'sanitize_text_field'
         );
-        foreach ($fields as $field) {
+    
+        foreach ($fields as $field => $sanitize_callback) {
             if (isset($post_data[$field])) {
-                $settings[$field] = $post_data[$field];
+                $settings[$field] = call_user_func($sanitize_callback, $post_data[$field]);
             }
         }
+    
         return $settings;
     }
+    
     /**
      * Enqueue admin scripts and styles
      *

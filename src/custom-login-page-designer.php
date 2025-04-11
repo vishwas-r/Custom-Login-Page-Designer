@@ -167,9 +167,9 @@ class CLPD51 {
 }
 
 // Initialize the plugin
-function custom_login_page_designer() {
+function clpd_page_designer() {
     return CLPD51::get_instance();
 }
 
 // Get the plugin running
-custom_login_page_designer();
+clpd_page_designer();
