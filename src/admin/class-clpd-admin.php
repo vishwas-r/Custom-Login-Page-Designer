@@ -169,10 +169,10 @@ class Admin {
         );
         
         // Get template settings for JavaScript
-        global $template_settings;
-        if (!isset($template_settings)) {
+        global $clpd_template_settings;
+        if (!isset($clpd_template_settings)) {
             // If not available globally, recreate the template settings array
-            $template_settings = array(
+            $clpd_template_settings = array(
                 'minimal-white' => array(
                     'background_type' => 'color',
                     'background_color' => '#f0f0f1',
@@ -324,7 +324,7 @@ class Admin {
             'clpd-template-selection',
             'clpdData',
             array(
-                'templateSettings' => $template_settings,
+                'templateSettings' => $clpd_template_settings,
                 'logoText' => __('Select Logo', 'custom-login-page-designer'),
                 'bgImageText' => __('Select Background Image', 'custom-login-page-designer'),
                 'useImageText' => __('Use this image', 'custom-login-page-designer'),

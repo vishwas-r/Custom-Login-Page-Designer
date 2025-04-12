@@ -34,7 +34,7 @@ $font_families = array(
 );
 
 // Template settings
-$template_settings = array(
+$clpd_template_settings = array(
     'minimal-white' => array(
         'background_type' => 'color',
         'background_color' => '#f0f0f1',
@@ -169,7 +169,7 @@ $template_settings = array(
 $design_template = isset($settings['design_template']) ? $settings['design_template'] : 'minimal-white';
 
 // Use template settings if available, otherwise use defaults
-$current_template = isset($template_settings[$design_template]) ? $template_settings[$design_template] : $template_settings['minimal-white'];
+$current_template = isset($clpd_template_settings[$design_template]) ? $clpd_template_settings[$design_template] : $clpd_template_settings['minimal-white'];
 
 // Get settings or use defaults from the template
 $background_type = isset($settings['background_type']) ? $settings['background_type'] : $current_template['background_type'];
@@ -189,7 +189,7 @@ $button_hover_bg_color = isset($settings['button_hover_bg_color']) ? $settings['
 $button_font_family = isset($settings['button_font_family']) ? $settings['button_font_family'] : $current_template['button_font_family'];
 
 // Default settings for restore functionality
-$default_settings = $template_settings['minimal-white'];
+$default_settings = $clpd_template_settings['minimal-white'];
 $default_settings['design_template'] = 'minimal-white';
 $default_settings['logo_image'] = '';
 
