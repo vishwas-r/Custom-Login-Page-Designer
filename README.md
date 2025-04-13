@@ -117,7 +117,7 @@ After activating the plugin:
 
 Need help? Have questions?
 * For support requests, please visit our [support forum](https://wordpress.org/support/plugin/custom-login-page-designer/)
-* For feature requests or bug reports, please [create an issue](https://github.com/vishwasr/custom-login-page-designer/issues)
+* For feature requests or bug reports, please [create an issue](https://github.com/vishwas-r/Custom-Login-Page-Designer/issues)
 
 ---
 
