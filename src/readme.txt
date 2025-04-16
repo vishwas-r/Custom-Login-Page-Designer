@@ -1,11 +1,11 @@
 === Custom Login Page Designer ===
 Contributors: vishwasr
 Donate link: https://www.paypal.com/paypalme/vishwasr92
-Tags: wp-login, login, login customizer, custom login, wordpress login, login page, login designer, branding
+Tags: wp-login, login customizer, custom login, wordpress login, login designer
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,9 @@ Yes, the plugin is fully compatible with WordPress Multisite installations.
 
 == Changelog ==
 
+= 1.1.0 =
+* Added 2 more templates
+
 = 1.0.0 =
 * Initial release with 8 professional templates
 * Background customization features
@@ -96,11 +99,6 @@ Yes, the plugin is fully compatible with WordPress Multisite installations.
 * Form and button styling options
 * Mobile responsive designs
 * User-friendly admin interface
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-Initial release of Custom Login Page Designer. Transform your WordPress login page with beautiful professional designs.
 
 == Usage ==
 
@@ -118,4 +116,4 @@ After activating the plugin:
 
 Need help? Have questions?
 * For support requests, please visit our [support forum](https://wordpress.org/support/plugin/custom-login-page-designer/)
-* For feature requests or bug reports, please [submit an issue](https://github.com/vishwasr/custom-login-page-designer/issues)
+* For feature requests or bug reports, please [submit an issue](https://github.com/vishwas-r/Custom-Login-Page-Designer/issues)

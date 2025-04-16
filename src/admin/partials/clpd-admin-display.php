@@ -22,6 +22,8 @@ $design_templates = array(
     'nature-inspired' => __('Nature Inspired', 'custom-login-page-designer'),
     'neomorphic-modern' => __('Neomorphic Modern', 'custom-login-page-designer'),
     'blueprint-professional' => __('Blueprint Professional', 'custom-login-page-designer'),
+    'vintage-paper' => __('Vintage Paper', 'custom-login-page-desinger'),
+    'cosmic-night' => __('Cosmic Night', 'custom-login-page-designer'),
 );
 // Get font families
 $font_families = array(
@@ -162,6 +164,38 @@ $clpd_template_settings = array(
         'button_bg_color' => '#3498db',
         'button_hover_bg_color' => '#2980b9',
         'button_font_family' => 'Tahoma, sans-serif',
+    ),
+    'vintage-paper' => array(
+        'background_type' => 'color',
+        'background_color' => '#f5f0e1',
+        'background_gradient_start' => '#d9c5a0',
+        'background_gradient_end' => '#f5f0e1',
+        'background_image' => '',
+        'logo_image_width' => '210px',
+        'logo_image_height' => '75px',
+        'logo_image_radius' => '8px',
+        'text_color' => '#523a28',
+        'text_font_family' => 'Georgia, serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#8b5a2b',
+        'button_hover_bg_color' => '#6b4423',
+        'button_font_family' => 'Georgia, serif',
+    ),
+    'cosmic-night' => array(
+        'background_type' => 'gradient',
+        'background_color' => '#0f0f1f',
+        'background_gradient_start' => '#0f0f1f',
+        'background_gradient_end' => '#202060',
+        'background_image' => '',
+        'logo_image_width' => '220px',
+        'logo_image_height' => '80px',
+        'logo_image_radius' => '12px',
+        'text_color' => '#e0e0ff',
+        'text_font_family' => 'Roboto, sans-serif',
+        'button_text_color' => '#ffffff',
+        'button_bg_color' => '#9d4edd',
+        'button_hover_bg_color' => '#c77dff',
+        'button_font_family' => 'Roboto, sans-serif',
     ),
 );
 
@@ -490,9 +524,9 @@ if (isset($_POST['clpd_restore_defaults']) && check_admin_referer('clpd_settings
             <div class="clpd-sidebar-widget">
                 <h3><?php esc_html_e('Need Help?', 'custom-login-page-designer'); ?></h3>
                 <ul>
-                    <li><a href="#"><?php esc_html_e('Documentation', 'custom-login-page-designer'); ?></a></li>
-                    <li><a href="#"><?php esc_html_e('Support', 'custom-login-page-designer'); ?></a></li>
-                    <li><a href="#"><?php esc_html_e('Rate this Plugin', 'custom-login-page-designer'); ?></a></li>
+                    <li><a href="https://wordpress.org/support/plugin/custom-login-page-designer/" target="_blank"><?php esc_html_e('Support', 'custom-login-page-designer'); ?></a></li>
+                    <li><a href="https://github.com/vishwas-r/Custom-Login-Page-Designer" target="_blank"><?php esc_html_e('Github', 'custom-login-page-designer'); ?></a></li>
+                    <li><a href="https://wordpress.org/support/plugin/custom-login-page-designer/reviews/#new-post" target="_blank"><?php esc_html_e('Rate this Plugin', 'custom-login-page-designer'); ?></a></li>
                 </ul>
             </div>
         </div>
