@@ -22,7 +22,7 @@ $design_templates = array(
     'nature-inspired' => __('Nature Inspired', 'custom-login-page-designer'),
     'neomorphic-modern' => __('Neomorphic Modern', 'custom-login-page-designer'),
     'blueprint-professional' => __('Blueprint Professional', 'custom-login-page-designer'),
-    'vintage-paper' => __('Vintage Paper', 'custom-login-page-desinger'),
+    'vintage-paper' => __('Vintage Paper', 'custom-login-page-designer'),
     'cosmic-night' => __('Cosmic Night', 'custom-login-page-designer'),
 );
 // Get font families

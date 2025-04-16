@@ -85,6 +85,9 @@ Yes, the plugin is fully compatible with WordPress Multisite installations.
 8. Nature Inspired Template - Calming organic design
 9. Neomorphic Modern Template - Subtle 3D effect design
 10. Blueprint Professional Template - Technical styled interface
+10. Blueprint Professional Template - Technical styled interface
+11. Vintage Paper Template - Nostalgic parchment-style design
+12. Cosmic Night Template - Immersive space-themed experience
 
 == Changelog ==
 
