@@ -1,5 +1,11 @@
 # 🎨 Custom Login Page Designer
 
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/custom-login-page-designer.svg)](https://wordpress.org/plugins/custom-login-page-designer/)
+[![WordPress Tested Up To](https://img.shields.io/wordpress/v/custom-login-page-designer.svg)](https://wordpress.org/plugins/custom-login-page-designer/)
+[![WordPress Plugin Rating](https://img.shields.io/wordpress/plugin/r/custom-login-page-designer.svg)](https://wordpress.org/plugins/custom-login-page-designer/)
+[![WordPress Plugin Downloads](https://img.shields.io/wordpress/plugin/dt/custom-login-page-designer.svg)](https://wordpress.org/plugins/custom-login-page-designer/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
 **Transform your WordPress login page into a branded experience with elegant designs, custom backgrounds, logo uploads, and more.**
 
 **Custom Login Page Designer** allows administrators to easily transform the default WordPress login page into a professional, branded experience with just a few clicks. Choose from elegant predefined designs and further customize colors, backgrounds, typography, and other elements to perfectly match your brand identity.
