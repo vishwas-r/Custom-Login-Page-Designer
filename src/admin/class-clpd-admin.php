@@ -36,6 +36,10 @@ class Admin {
         $this->loader = $loader;
         $this->settings = get_option('clpd_settings', array());
         $this->register_hooks();
+
+        // Custom highlights to keep parent menu active when grouped
+        add_filter('parent_file', array($this, 'xboard_keep_menu_open'), 999);
+        add_filter('submenu_file', array($this, 'xboard_highlight_submenu'), 999, 2);
     }
     /**
      * Register the hooks related to admin functionality
@@ -51,15 +55,55 @@ class Admin {
      * Add top-level menu page to admin menu
      */
     public function add_menu_page() {
-        add_menu_page(
-            __('Custom Login Page Designer', 'custom-login-page-designer'),
-            __('Login Page Designer', 'custom-login-page-designer'),
-            'manage_options',
-            'custom-login-page-designer',
-            array($this, 'render_options_page'),
-            'dashicons-admin-customizer',
-            60
-        );
+        $active_plugins = apply_filters('xboard_active_plugins', []);
+        $is_grouped = count($active_plugins) > 1;
+
+        if ($is_grouped) {
+            $parent_slug = apply_filters('xboard_parent_slug', 'xboard');
+            $parent_title = apply_filters('xboard_parent_title', 'XBoard');
+
+            // Register parent menu exactly once
+            if (empty($GLOBALS['xboard_parent_registered'])) {
+                add_menu_page(
+                    $parent_title,
+                    $parent_title,
+                    'manage_options',
+                    $parent_slug,
+                    'xboard_render_dashboard',
+                    'dashicons-admin-tools',
+                    3 // Position right after Dashboard
+                );
+                add_submenu_page(
+                    $parent_slug,
+                    esc_html__('Dashboard', 'custom-login-page-designer'),
+                    esc_html__('Dashboard', 'custom-login-page-designer'),
+                    'manage_options',
+                    $parent_slug,
+                    'xboard_render_dashboard'
+                );
+                $GLOBALS['xboard_parent_registered'] = true;
+            }
+
+            // Register Custom Login Page Designer under XBoard
+            add_submenu_page(
+                $parent_slug,
+                __('Login Page Designer', 'custom-login-page-designer'),
+                __('Login Page Designer', 'custom-login-page-designer'),
+                'manage_options',
+                'custom-login-page-designer',
+                array($this, 'render_options_page')
+            );
+        } else {
+            add_menu_page(
+                __('Custom Login Page Designer', 'custom-login-page-designer'),
+                __('Login Page Designer', 'custom-login-page-designer'),
+                'manage_options',
+                'custom-login-page-designer',
+                array($this, 'render_options_page'),
+                'dashicons-admin-customizer',
+                60
+            );
+        }
     }
     
     /**
@@ -134,8 +178,8 @@ class Admin {
      * @param string $hook Current admin page.
      */
     public function clpd_enqueue_admin_scripts($hook) {
-        // Check if we're on either the top-level page or the settings submenu
-        if ($hook !== 'toplevel_page_custom-login-page-designer' && $hook !== 'settings_page_custom-login-page-designer-settings') {
+        // Check if we're on either the top-level page or the settings submenu, or the grouped XBoard subpage
+        if ($hook !== 'toplevel_page_custom-login-page-designer' && $hook !== 'settings_page_custom-login-page-designer-settings' && $hook !== 'xboard_page_custom-login-page-designer') {
             return;
         }
         // Admin styles
@@ -370,15 +414,314 @@ class Admin {
      * @param array $links Plugin action links.
      * @return array Modified plugin action links.
      */
-    public function add_plugin_action_links($links) {
-        $settings_link = sprintf(
-            '<a href="%s">%s</a>',
-            esc_url(admin_url('admin.php?page=custom-login-page-designer')),
-            __('Settings', 'custom-login-page-designer')
-        );
-        
         array_unshift($links, $settings_link);
         
         return $links;
+    }
+
+    public function xboard_keep_menu_open($parent_file) {
+        if (isset($_GET['page'])) {
+            $page = sanitize_text_field(wp_unslash($_GET['page']));
+            $clpd_pages = array('custom-login-page-designer', 'custom-login-page-designer-settings');
+            if (in_array($page, $clpd_pages, true)) {
+                return 'xboard';
+            }
+        }
+        return $parent_file;
+    }
+
+    public function xboard_highlight_submenu($submenu_file, $parent_file) {
+        if ($parent_file === 'xboard' && isset($_GET['page'])) {
+            $page = sanitize_text_field(wp_unslash($_GET['page']));
+            if ($page === 'custom-login-page-designer' || $page === 'custom-login-page-designer-settings') {
+                return 'custom-login-page-designer';
+            }
+        }
+        return $submenu_file;
+    }
+}
+
+namespace {
+    /**
+     * Helper to fetch Custom Login Page Designer stats for the unified dashboard
+     */
+    if (!function_exists('xboard_get_clpd_stats')) {
+        function xboard_get_clpd_stats() {
+            $settings = get_option('clpd_settings', array());
+            $template = isset($settings['design_template']) ? $settings['design_template'] : 'minimal-white';
+            
+            // Map slug to human readable name
+            $templates = array(
+                'minimal-white' => 'Minimal White',
+                'corporate-professional' => 'Corporate Professional',
+                'modern-tech' => 'Modern Tech',
+                'glassmorphism' => 'Glassmorphism',
+                'dark-gradient' => 'Dark Gradient',
+                'nature-inspired' => 'Nature Inspired',
+                'neomorphic-modern' => 'Neomorphic Modern',
+                'blueprint-professional' => 'Blueprint Professional',
+                'vintage-paper' => 'Vintage Paper',
+                'cosmic-night' => 'Cosmic Night',
+            );
+            
+            $template_name = isset($templates[$template]) ? $templates[$template] : $template;
+            
+            return array(
+                'active_template' => $template_name,
+                'bg_type' => isset($settings['background_type']) ? ucfirst($settings['background_type']) : 'Color',
+            );
+        }
+    }
+
+    /**
+     * Render the unified XBoard Dashboard page (duplicate-safe)
+     */
+    if (!function_exists('xboard_render_dashboard')) {
+        function xboard_render_dashboard() {
+            // Stats for License MasterX
+            $lmx_stats = [];
+            if (class_exists('LicenseMasterX51_Admin')) {
+                $lmx_admin = new LicenseMasterX51_Admin();
+                $lmx_stats = $lmx_admin->get_quick_stats();
+            }
+
+            // Stats for File Download ManagerX
+            $fdmx_stats = [];
+            if (function_exists('xboard_get_fdmx_stats')) {
+                $fdmx_stats = xboard_get_fdmx_stats();
+            }
+
+            // Stats for Post DuplicateX
+            $postdx_stats = [];
+            if (function_exists('xboard_get_postdx_stats')) {
+                $postdx_stats = xboard_get_postdx_stats();
+            }
+
+            // Stats for Custom Login Page Designer
+            $clpd_stats = [];
+            if (function_exists('xboard_get_clpd_stats')) {
+                $clpd_stats = xboard_get_clpd_stats();
+            }
+
+            $active_plugins = apply_filters('xboard_active_plugins', []);
+            ?>
+            <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#f6f8fa;min-height:100vh;margin:0 0 0 -20px;padding:0;max-width:100%;box-sizing:border-box;">
+
+                <!-- ── Banner Header ── -->
+                <div style="background:linear-gradient(135deg,#2563ec 0%,#3b82f6 50%,#8b5cf6 100%);color:#fff;padding:30px 40px;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+                    <div style="display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto;">
+                        <div style="display:flex;flex-direction:column;">
+                            <h1 style="font-size:32px;font-weight:700;margin:0;color:#fff;display:flex;align-items:center;gap:12px;">
+                                <span class="dashicons dashicons-admin-tools" style="font-size:36px;width:36px;height:36px;"></span>
+                                XBoard
+                                <span style="background:rgba(255,255,255,0.2);padding:4px 12px;border-radius:9999px;font-weight:500;font-size:11px;vertical-align:middle;backdrop-filter:blur(8px);">Unified Suite</span>
+                            </h1>
+                            <p style="font-size:16px;opacity:0.9;margin:8px 0 0 0;font-weight:400;">Centralized control center for AlertX developer plugins.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Horizontal Nav Bar ── -->
+                <nav class="xboard-nav">
+                    <ul>
+                        <li class="active">
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=xboard')); ?>">
+                                <span class="dashicons dashicons-dashboard"></span>
+                                <?php esc_html_e('Dashboard', 'custom-login-page-designer'); ?>
+                            </a>
+                        </li>
+                        <?php if (!empty($lmx_stats)) : ?>
+                        <li>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=licensemasterx51')); ?>">
+                                <span class="dashicons dashicons-admin-network"></span>
+                                <?php esc_html_e('License MasterX', 'custom-login-page-designer'); ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if (!empty($fdmx_stats)) : ?>
+                        <li>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=file-download-managerx')); ?>">
+                                <span class="dashicons dashicons-download"></span>
+                                <?php esc_html_e('File Download ManagerX', 'custom-login-page-designer'); ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if (!empty($postdx_stats)) : ?>
+                        <li>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=post-duplicatex')); ?>">
+                                <span class="dashicons dashicons-admin-page"></span>
+                                <?php esc_html_e('Post DuplicateX', 'custom-login-page-designer'); ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                        <?php if (!empty($clpd_stats)) : ?>
+                        <li>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=custom-login-page-designer')); ?>">
+                                <span class="dashicons dashicons-admin-customizer"></span>
+                                <?php esc_html_e('Login Page Designer', 'custom-login-page-designer'); ?>
+                            </a>
+                        </li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+
+                <!-- ── Plugin Cards Grid ── -->
+                <div style="max-width:1400px;margin:0 auto;padding:28px 40px;box-sizing:border-box;">
+                    <style>
+                        .xboard-nav { background:white; border-radius:0 0 12px 12px; border:1px solid #e5e7eb; padding:12px 40px; margin-bottom:30px; margin-top:-15px; box-shadow:0 1px 3px 0 rgba(0,0,0,0.05); }
+                        .xboard-nav ul { list-style:none; margin:0 auto; padding:0; display:flex; gap:8px; flex-wrap:wrap; max-width:1400px; }
+                        .xboard-nav li { margin:0; }
+                        .xboard-nav a { color:#4b5563; text-decoration:none; font-weight:600; font-size:14px; padding:10px 18px; border-radius:8px; display:inline-flex; align-items:center; gap:8px; transition:all 0.2s ease; border:1px solid transparent; }
+                        .xboard-nav a:hover { background:#f9fafb; color:#111827; transform:translateY(-1px); }
+                        .xboard-nav li.active a { background:#f5f3ff; color:#7c3aed; border-color:#ddd6fe; box-shadow:0 2px 4px rgba(124,58,237,0.05); }
+                        .xboard-nav a .dashicons { font-size:18px; width:18px; height:18px; color:inherit; }
+                        .xboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:24px; }
+                        .xboard-card { background:#fff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,.05),0 2px 4px -1px rgba(0,0,0,.03); transition:all .3s cubic-bezier(.4,0,.2,1); overflow:hidden; display:flex; flex-direction:column; }
+                        .xboard-card:hover { transform:translateY(-4px); box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04); border-color:#cbd5e1; }
+                        .xboard-card-header { display:flex; align-items:center; gap:12px; padding:24px; border-bottom:1px solid #f1f5f9; background:#f8fafc; }
+                        .xboard-card-header .dashicons { font-size:24px; width:24px; height:24px; color:#475569; }
+                        .xboard-card-header h2 { font-size:18px; font-weight:600; margin:0; color:#1e293b; }
+                        .xboard-card-body { padding:24px; flex:1; display:flex; flex-direction:column; justify-content:space-between; }
+                        .xboard-stat-row { display:flex; gap:16px; margin-bottom:20px; }
+                        .xboard-stat { flex:1; background:#f8fafc; padding:16px; border-radius:8px; border:1px solid #e2e8f0; }
+                        .xboard-number { font-size:24px; font-weight:700; color:#0f172a; margin-bottom:4px; }
+                        .xboard-label { font-size:11px; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+                        .xboard-top-file { font-size:13px; color:#475569; margin:0 0 20px 0; background:#f1f5f9; padding:10px 14px; border-radius:6px; }
+                        .xboard-top-file code { font-family:monospace; color:#0f172a; font-size:12px; }
+                        .xboard-quick-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:auto; padding-top:15px; border-top:1px solid #f1f5f9; }
+                        .xboard-btn { display:inline-flex; align-items:center; background:#fff; border:1px solid #cbd5e1; color:#334155; padding:8px 16px; font-size:13px; font-weight:600; border-radius:6px; text-decoration:none; transition:all .2s; }
+                        .xboard-btn:hover { background:#f8fafc; border-color:#94a3b8; color:#0f172a; }
+                    </style>
+                    <div class="xboard-grid">
+
+                        <!-- License MasterX Card -->
+                        <?php if (!empty($lmx_stats)) : ?>
+                        <div class="xboard-card">
+                            <div class="xboard-card-header">
+                                <span class="dashicons dashicons-admin-network"></span>
+                                <h2>License MasterX</h2>
+                            </div>
+                            <div class="xboard-card-body">
+                                <div>
+                                    <div class="xboard-stat-row">
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($lmx_stats['total_keys']); ?></div>
+                                            <div class="xboard-label">License Keys</div>
+                                        </div>
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($lmx_stats['active_activations']); ?></div>
+                                            <div class="xboard-label">Activations</div>
+                                        </div>
+                                    </div>
+                                    <div class="xboard-stat-row">
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($lmx_stats['total_combined_customers']); ?></div>
+                                            <div class="xboard-label">Customers</div>
+                                        </div>
+                                        <div class="xboard-stat" style="opacity:.8;">
+                                            <div class="xboard-number" style="font-size:20px;"><?php echo number_format_i18n($lmx_stats['blocked_ips']); ?></div>
+                                            <div class="xboard-label">Blocked IPs</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="xboard-quick-links">
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=licensemasterx51')); ?>" class="xboard-btn">License Settings</a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=licensemasterx51-serial-keys')); ?>" class="xboard-btn">Serial Keys</a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=licensemasterx51-store-entitlements')); ?>" class="xboard-btn">Store Customers</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <!-- File Download ManagerX Card -->
+                        <?php if (!empty($fdmx_stats)) : ?>
+                        <div class="xboard-card">
+                            <div class="xboard-card-header">
+                                <span class="dashicons dashicons-download"></span>
+                                <h2>File Download ManagerX</h2>
+                            </div>
+                            <div class="xboard-card-body">
+                                <div>
+                                    <div class="xboard-stat-row">
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($fdmx_stats['total_files']); ?></div>
+                                            <div class="xboard-label">Managed Files</div>
+                                        </div>
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($fdmx_stats['total_downloads']); ?></div>
+                                            <div class="xboard-label">Downloads</div>
+                                        </div>
+                                    </div>
+                                    <div class="xboard-top-file">
+                                        <strong>Top File:</strong> <code><?php echo esc_html($fdmx_stats['top_file']); ?></code>
+                                    </div>
+                                </div>
+                                <div class="xboard-quick-links">
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=file-download-managerx')); ?>" class="xboard-btn">File Manager</a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=file-download-managerx-stats')); ?>" class="xboard-btn">Download Stats</a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=file-download-managerx-settings')); ?>" class="xboard-btn">Settings</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <!-- Post DuplicateX Card -->
+                        <?php if (!empty($postdx_stats)) : ?>
+                        <div class="xboard-card">
+                            <div class="xboard-card-header">
+                                <span class="dashicons dashicons-admin-page"></span>
+                                <h2>Post DuplicateX</h2>
+                            </div>
+                            <div class="xboard-card-body">
+                                <div>
+                                    <div class="xboard-stat-row">
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number"><?php echo number_format_i18n($postdx_stats['enabled_post_types']); ?></div>
+                                            <div class="xboard-label">Enabled Post Types</div>
+                                        </div>
+                                    </div>
+                                    <div class="xboard-top-file">
+                                        <strong>Types:</strong> <code><?php echo esc_html($postdx_stats['post_types_list']); ?></code>
+                                    </div>
+                                </div>
+                                <div class="xboard-quick-links">
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=post-duplicatex')); ?>" class="xboard-btn">Settings</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                        <!-- Custom Login Page Designer Card -->
+                        <?php if (!empty($clpd_stats)) : ?>
+                        <div class="xboard-card">
+                            <div class="xboard-card-header">
+                                <span class="dashicons dashicons-admin-customizer"></span>
+                                <h2>Login Page Designer</h2>
+                            </div>
+                            <div class="xboard-card-body">
+                                <div>
+                                    <div class="xboard-stat-row">
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number" style="font-size:18px;word-break:break-word;"><?php echo esc_html($clpd_stats['active_template']); ?></div>
+                                            <div class="xboard-label">Active Template</div>
+                                        </div>
+                                        <div class="xboard-stat">
+                                            <div class="xboard-number" style="font-size:18px;"><?php echo esc_html($clpd_stats['bg_type']); ?></div>
+                                            <div class="xboard-label">Background</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="xboard-quick-links">
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=custom-login-page-designer')); ?>" class="xboard-btn">Customize Login Page</a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
     }
 }

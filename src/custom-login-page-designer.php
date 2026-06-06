@@ -171,5 +171,13 @@ function clpd_page_designer() {
     return CLPD51::get_instance();
 }
 
-// Get the plugin running
 clpd_page_designer();
+
+// Register plugin with XBoard active plugins list
+add_filter('xboard_active_plugins', function($plugins) {
+    $plugins['custom-login-page-designer'] = [
+        'name' => 'Login Page Designer',
+        'slug' => 'custom-login-page-designer',
+    ];
+    return $plugins;
+});
